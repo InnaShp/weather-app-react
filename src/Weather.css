@@ -1,0 +1,10 @@
+.Weather .card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px 25px;
+  border: none;
+  box-shadow: 5px 5px 10px rgb(107, 111, 116, 0.2);
+}
+.container {
+  margin-top: 100px;
+}
