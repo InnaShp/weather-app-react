@@ -1,11 +1,36 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Data from "./Data";
 
 export default function SearchEngine() {
   const [city, setCity] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [weather, setWeather] = useState({});
+  const [data, setData ] = useState("");
+
+  function formatDate(timestamp) {
+    let date = new Date(timestamp);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    let day = days[date.getDay()];
+    
+    if (hours < 10) {
+      hours = `0${hours}`;
+    }
+    
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+    setData(`${day} ${hours}:${minutes}`);
+  }
 
   function showWeather(response) {
     setLoaded(true);
@@ -17,6 +42,7 @@ export default function SearchEngine() {
       wind: response.data.wind.speed,
       icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     });
+    formatDate(response.data.dt * 1000);
   }
 
   function handleSubmit(event) {
@@ -46,7 +72,7 @@ export default function SearchEngine() {
             <h1>{weather.name}</h1>
             <ul>
               <li>
-                <Data />
+                {data}
               </li>
               <li>
                 {weather.description}
