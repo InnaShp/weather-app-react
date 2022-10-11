@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./SearchEngine.css";
+import Forecast from "./Forecast";
+import WeatherIcon from "./WeatherIcon";
 
 export default function SearchEngine() {
   const [city, setCity] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [weather, setWeather] = useState({});
   const [date, setDate ] = useState("");
-  const [weeklyForecast, setWeeklyForecast ] = useState("");
   
 
   function formatDate(timestamp) {
@@ -45,12 +46,13 @@ export default function SearchEngine() {
       description: response.data.weather[0].main,
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+      icon: response.data.weather[0].icon,
+      coordinates: response.data.coord,
     });
     formatDate(response.data.dt * 1000);
-
+    
   }
-
+  
   function searchCity(value){
     let apiKey = "9ad78e7db9272efcf0a75aa55efdcd5a";
     let units = "metric";
@@ -111,11 +113,10 @@ export default function SearchEngine() {
             </ul>
           </div>
           <div className="col-6">
-            <h2><img src={weather.icon} alt="Weather icon" className="weather-icon" />{Math.round(weather.temperature)} <span className="celsium">°C</span></h2>
+            <h2><WeatherIcon code={weather.icon} />{Math.round(weather.temperature)} <span className="celsium">°C</span></h2>
           </div>
         </div>
-        
-      
+        <Forecast coordinates={weather.coordinates} />
       </div>
     );
   } else {

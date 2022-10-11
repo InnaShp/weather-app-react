@@ -8,7 +8,7 @@ export default function Weather() {
       <div className="card">
         <SearchEngine />
       </div>
-      <small><a href="https://github.com/InnaShp/weather-app-react#:~:text=/-,weather%2Dapp%2Dreact,-Public" target="_blank" className="git-link">Open-source code</a> , by Inna Shpachynska</small>
+      <small><a href="https://github.com/InnaShp/weather-app-react#:~:text=/-,weather%2Dapp%2Dreact,-Public" target="_blank" rel="noreferrer" className="git-link">Open-source code</a> , by Inna Shpachynska</small>
     </div>
   );
 }
